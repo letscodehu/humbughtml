@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Humbug Html report</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>
+                Filename
+            </th>
+            <th>
+                Killed
+            </th>
+            <th>
+                Uncovered
+            </th>
+            <th>
+                Escaped
+            </th>
+            <th>
+                Errored
+            </th>
+            <th>
+                Timeouts
+            </th>
+        </tr>
+    <?php
+    /** @var \Letscodehu\HumbugHtml\Project $project */
+        foreach ($project->getFiles() as $file):
+            /** @var \Letscodehu\HumbugHtml\File $file */
+    ?>
+            <tr>
+                <td>
+                    <a href="files/<?php echo $file->getName() ?>.html" title="<?php echo $file->getName() ?>"><?php echo $file->getName() ?></a>
+                </td>
+                <td>
+                    <a href="files/<?php echo $file->getName() ?>.html#killed"><?php echo count($file->getKilled()); ?></a>
+                </td>
+                <td>
+                    <a href="files/<?php echo $file->getName() ?>.html#uncovered"><?php echo count($file->getUncovered()); ?>
+                </td>
+                <td>
+                    <a href="files/<?php echo $file->getName() ?>.html#escaped"><?php echo count($file->getEscaped()); ?>
+                </td>
+                <td>
+                    <a href="files/<?php echo $file->getName() ?>.html#errored"><?php echo count($file->getErrored()); ?>
+                </td>
+                <td>
+                    <a href="files/<?php echo $file->getName() ?>.html#timeouts"><?php echo count($file->getTimeouts()); ?>
+                </td>
+            </tr>
+
+    <?php endforeach ?>
+    </table>
+</body>
+</html>

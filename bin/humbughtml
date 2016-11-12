@@ -1,0 +1,8 @@
+#! /usr/bin/php
+<?php
+
+include( __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php");
+
+$app = new Letscodehu\HumbugHtml\Application(new Letscodehu\HumbugHtml\JsonParser(), new Letscodehu\HumbugHtml\HtmlRenderer());
+
+$app->generate();

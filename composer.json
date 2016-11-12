@@ -1,0 +1,20 @@
+{
+    "name": "letscodehu/humbughtml",
+    "description": "Generating HTML output from humbug's json log",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Papp Krisztián",
+            "email": "fejlesztes@letscode.hu"
+        }
+    ],
+  "autoload" : {
+    "psr-4": {
+      "Letscodehu\\HumbugHtml\\" : "src//"
+    }
+  },
+
+    "require-dev": {
+      "phpunit/phpunit" : "4.8.*"
+    }
+}
