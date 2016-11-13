@@ -1,0 +1,25 @@
+.mutation {
+    margin-top: 40px;
+}
+tr, th, td {
+    display: block;
+    max-height: 14px;
+}
+.mutation {
+
+}
+
+h3 {
+
+}
+
+pre {
+    margin-top: 0;
+}
+.original {
+    background-color: #dff0d8;
+}
+
+.mutated {
+    background-color: #f2dede;
+}

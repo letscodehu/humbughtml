@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Humbug Html report</title>
+    <link rel="stylesheet" href="<?php echo $this->resourcesDir."bootstrap.min.css"; ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->resourcesDir."style.css"; ?>"/>
 </head>
 <body>
     <table>
@@ -54,5 +56,7 @@
 
     <?php endforeach ?>
     </table>
+    <script type="text/javascript" src="<?php echo $this->resourcesDir."jquery.min.js" ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->resourcesDir."bootstrap.min.js" ?>"></script>
 </body>
 </html>

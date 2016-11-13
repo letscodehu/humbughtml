@@ -2,32 +2,12 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <style>
-        .mutation {
-            margin-top: 40px;
-        }
-        tr, th, td {
-            display: block;
-            max-height: 14px;
-        }
-        .mutation {
-
-        }
-
-        pre {
-            margin-top: 0;
-        }
-        .original {
-            background-color: #dff0d8;
-        }
-
-        .mutated {
-            background-color: #f2dede;
-        }
-    </style>
     <title><?php echo $file->getName() ?> mutation test reports</title>
+    <link rel="stylesheet" href="<?php echo $this->resourcesDir."bootstrap.min.css"; ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->resourcesDir."style.css"; ?>"/>
 </head>
 <body>
+<h1><?php echo $file->getName() ?> mutation test reports</h1>
 <?php /** @var \Letscodehu\HumbugHtml\File $file */ ?>
     <div id="killed">
         <h3>Killed</h3>
@@ -84,6 +64,7 @@
             </div>
         <?php endforeach ?>
     </div>
-
+<script type="text/javascript" src="<?php echo $this->resourcesDir."jquery.min.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $this->resourcesDir."bootstrap.min.js" ?>"></script>
 </body>
 </html>
