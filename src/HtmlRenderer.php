@@ -30,7 +30,7 @@ class HtmlRenderer implements Renderer {
 
     private function renderProjectView(Project $project) {
         ob_start();
-        include "stubs".DS."project.phtml";
+        include LIBRARY_ROOT.DS."stubs".DS."project.phtml";
         $content = ob_get_contents();
         ob_end_clean();
         file_put_contents($this->outDir. DS . "index.html", $content);
@@ -40,7 +40,7 @@ class HtmlRenderer implements Renderer {
         /** @var File $file */
         foreach ($project->getFiles() as $file) {
             ob_start();
-            include "stubs".DS."file.phtml";
+            include LIBRARY_ROOT.DS."stubs".DS."file.phtml";
             $content = ob_get_contents();
             ob_end_clean();
             $this->forceFilePutContents($this->outDir. DS . "files". DS. $file->getName().".html", $content);
