@@ -106,7 +106,6 @@ class JsonParser implements Parser {
     }
 
     public function convertDiff($string) {
-        $generated = "";
         $rows =  array_slice(explode(PHP_EOL, $string), 3);
         for($x = 0; $x < count($rows); $x++) {
             if (strpos($rows[$x], "-") === 0) {

@@ -11,39 +11,50 @@ namespace Letscodehu\HumbugHtml;
 
 class HtmlRenderer implements Renderer {
 
-    private $outDir, $resourcesDir;
+    private $outDir, $resourcesDir, $capturer, $writer;
 
-    public function __construct($outDir = "humbugreports") {
+    public function __construct($outDir = "humbugreports", StreamCapturer $capturer, StreamWriter $writer) {
         $this->outDir = $outDir;
+        $this->capturer = $capturer;
+        $this->writer = $writer;
         $this->resourcesDir = getcwd().DS.$outDir.DS."resources".DS;
     }
 
+    /**
+     * Rendering the given project. Generating the directories for it, copies the
+     * static resources then renders the HTML for the project and for the files in that project.
+     *
+     * @param Project $project
+     */
     public function render(Project $project)
     {
         $this->createDirectories();
         $this->copyResources();
         $this->renderProjectView($project);
         $this->renderFileViews($project);
-        $this->renderMutantViews($project);
 
     }
 
     private function renderProjectView(Project $project) {
-        ob_start();
-        include LIBRARY_ROOT.DS."stubs".DS."project.phtml";
-        $content = ob_get_contents();
-        ob_end_clean();
-        file_put_contents($this->outDir. DS . "index.html", $content);
+        $content = $this->capturer->includeFile(LIBRARY_ROOT.DS."stubs".DS."project.phtml",
+            array(
+                "project" => $project,
+                "resourcesDir" => $this->resourcesDir
+            )
+        );
+        $this->writer->putContents($this->outDir. DS . "index.html", $content);
     }
 
     private function renderFileViews(Project $project) {
-        /** @var File $file */
         foreach ($project->getFiles() as $file) {
-            ob_start();
-            include LIBRARY_ROOT.DS."stubs".DS."file.phtml";
-            $content = ob_get_contents();
-            ob_end_clean();
-            $this->forceFilePutContents($this->outDir. DS . "files". DS. $file->getName().".html", $content);
+            /** @var File $file */
+            $content = $this->capturer->includeFile(LIBRARY_ROOT.DS."stubs".DS."file.phtml",
+                array(
+                    "project" => $project,
+                    "file" => $file,
+                    "resourcesDir" => $this->resourcesDir
+                ));
+            $this->writer->putContents($this->outDir. DS . "files". DS. $file->getName().".html", $content);
         }
     }
 
@@ -55,25 +66,6 @@ class HtmlRenderer implements Renderer {
             $this->resourcesDir."bootstrap.min.js");
         copy(getcwd().DS."vendor".DS."components".DS."jquery".DS."jquery.min.js",
             $this->resourcesDir."jquery.min.js");
-    }
-
-    function forceFilePutContents ($filepath, $content){
-        try {
-            $isInFolder = preg_match("/^(.*)\/([^\/]+)$/", $filepath, $filepathMatches);
-            if($isInFolder) {
-                $folderName = $filepathMatches[1];
-                if (!is_dir($folderName)) {
-                    mkdir($folderName, 0777, true);
-                }
-            }
-            file_put_contents($filepath, $content);
-        } catch (\Exception $e) {
-            echo "ERR: error writing '$content' to '$filepath', ". $e->getMessage();
-        }
-    }
-
-    private function renderMutantViews(Project $project) {
-
     }
 
     private function createDirectories() {

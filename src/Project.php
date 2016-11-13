@@ -2,7 +2,13 @@
 
 namespace Letscodehu\HumbugHtml;
 
-
+/**
+ * Class Project
+ *
+ * The domain representation of a project to be rendered containing files and mutations.
+ *
+ * @package Letscodehu\HumbugHtml
+ */
 class Project {
 
     private $summary, $uncovered = array(), $escaped = array(), $errored = array(), $timeouts = array(), $killed = array(), $files = array();

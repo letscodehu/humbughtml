@@ -1,0 +1,12 @@
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+        backupGlobals="true"
+        backupStaticAttributes="false">
+
+    <testsuites>
+        <testsuite name="HUmbugHtml Test Suite">
+            <directory>test/</directory>
+        </testsuite>
+    </testsuites>
+        </phpunit>

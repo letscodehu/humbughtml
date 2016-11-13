@@ -1,15 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tacsiazuma
- * Date: 2016.11.12.
- * Time: 19:42
- */
 
 namespace Letscodehu\HumbugHtml;
 
 
 interface Parser {
+
+    /**
+     * Consumes the logfile given and generates a project from its content.
+     * @return \Letscodehu\HumbugHtml\Project
+     */
     public function consume();
 
 }

@@ -1,14 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tacsiazuma
- * Date: 2016.11.12.
- * Time: 20:46
- */
 
 namespace Letscodehu\HumbugHtml;
 
 
+/**
+ * Class File
+ *
+ * The domain representation of a file with the corresponding mutants.
+ *
+ * @package Letscodehu\HumbugHtml
+ */
 class File {
 
     private $name, $uncovered = array(), $escaped = array(), $errored = array(), $timeouts = array(), $killed = array();

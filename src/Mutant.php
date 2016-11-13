@@ -1,14 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tacsiazuma
- * Date: 2016.11.12.
- * Time: 19:43
- */
 
 namespace Letscodehu\HumbugHtml;
 
-
+/**
+ * Class Mutant
+ *
+ * Domain representation of a mutant in a project or a file.
+ *
+ * @package Letscodehu\HumbugHtml
+ */
 class Mutant {
 
     private $file, $mutator, $class, $method, $line, $diff, $tests, $stderr, $stdout;
