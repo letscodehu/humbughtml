@@ -6,6 +6,27 @@ include( __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."vendor".DIRECTORY
 define("LIBRARY_ROOT", __DIR__.DIRECTORY_SEPARATOR. "..");
 define("DS", DIRECTORY_SEPARATOR);
 
-$app = new Letscodehu\HumbugHtml\Application(new Letscodehu\HumbugHtml\JsonParser(), new Letscodehu\HumbugHtml\HtmlRenderer());
+$logFile = "humbuglog.json";
+$outDir = "humbugreports";
 
-$app->generate();
+$options = getopt("l::o::", array("logfile::", "outdir::"));
+
+if (array_key_exists("l", $options)) {
+    $logFile = $options["l"];
+}
+if (array_key_exists("logfile", $options)) {
+    $logFile = $options["logfile"];
+}
+if (array_key_exists("o", $options)) {
+    $outDir = $options["o"];
+}
+if (array_key_exists("outdir", $options)) {
+    $outDir = $options["outdir"];
+}
+try {
+    $app = new Letscodehu\HumbugHtml\Application(new Letscodehu\HumbugHtml\JsonParser($logFile), new Letscodehu\HumbugHtml\HtmlRenderer($outDir));
+
+    $app->generate();
+} catch (Exception $e) {
+    echo $e->getMessage().PHP_EOL;
+}
