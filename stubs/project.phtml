@@ -3,11 +3,19 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Humbug Html report</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo $this->resourcesDir."bootstrap.min.css"; ?>"/>
     <link rel="stylesheet" href="<?php echo $this->resourcesDir."style.css"; ?>"/>
 </head>
 <body>
-    <table>
+<div class="container">
+    <div class="page-header">
+        <h1>Mutation Test Reports</h1>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
         <tr>
             <th>
                 Filename
@@ -28,12 +36,21 @@
                 Timeouts
             </th>
         </tr>
-    <?php
-    /** @var \Letscodehu\HumbugHtml\Project $project */
+        </thead>
+        <tbody>
+        <?php
+        /** @var \Letscodehu\HumbugHtml\Project $project */
         foreach ($project->getFiles() as $file):
             /** @var \Letscodehu\HumbugHtml\File $file */
-    ?>
-            <tr>
+            ?>
+            <tr <?php if (count($file->getKilled()) == 0): ?>
+                class="danger"
+            <?php elseif (count($file->getEscaped()) == 0  && count($file->getUncovered()) == 0): ?>
+                class="success"
+            <?php else: ?>
+                class="warning"
+                <?php endif; ?>
+                >
                 <td>
                     <a href="files/<?php echo $file->getName() ?>.html" title="<?php echo $file->getName() ?>"><?php echo $file->getName() ?></a>
                 </td>
@@ -41,21 +58,24 @@
                     <a href="files/<?php echo $file->getName() ?>.html#killed"><?php echo count($file->getKilled()); ?></a>
                 </td>
                 <td>
-                    <a href="files/<?php echo $file->getName() ?>.html#uncovered"><?php echo count($file->getUncovered()); ?>
+                    <a href="files/<?php echo $file->getName() ?>.html#uncovered"><?php echo count($file->getUncovered()); ?></a>
                 </td>
                 <td>
-                    <a href="files/<?php echo $file->getName() ?>.html#escaped"><?php echo count($file->getEscaped()); ?>
+                    <a href="files/<?php echo $file->getName() ?>.html#escaped"><?php echo count($file->getEscaped()); ?></a>
                 </td>
                 <td>
-                    <a href="files/<?php echo $file->getName() ?>.html#errored"><?php echo count($file->getErrored()); ?>
+                    <a href="files/<?php echo $file->getName() ?>.html#errored"><?php echo count($file->getErrored()); ?></a>
                 </td>
                 <td>
-                    <a href="files/<?php echo $file->getName() ?>.html#timeouts"><?php echo count($file->getTimeouts()); ?>
+                    <a href="files/<?php echo $file->getName() ?>.html#timeouts"><?php echo count($file->getTimeouts()); ?></a>
                 </td>
             </tr>
 
-    <?php endforeach ?>
+        <?php endforeach ?>
+        </tbody>
     </table>
+        </div>
+</div>
     <script type="text/javascript" src="<?php echo $this->resourcesDir."jquery.min.js" ?>"></script>
     <script type="text/javascript" src="<?php echo $this->resourcesDir."bootstrap.min.js" ?>"></script>
 </body>

@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<?php /** @var \Letscodehu\HumbugHtml\Mutant $mutant */ ?>
+<div class="panel panel-default mutation">
+    <div class="panel-body">
+        <div class="diff col-md-6">
+            <?php echo $mutant->getDiff() ?>
+        </div>
+        <div class="info col-md-6">
+            <p>Mutator <b>'<?php echo $mutant->getMutator() ?>'</b> used in</p>
+            <p><b><?php echo $mutant->getClass(); ?>::<?php echo $mutant->getMethod(); ?></b> at line <b><?php echo $mutant->getLine() ?></b></p>
+            <?php if ($mutant->getTests() !== null) : ?>
+            <p><b>Stdout:</b> <?php echo $mutant->getStdout() ?></p>
+            <p><b>Stderr:</b> <?php echo $mutant->getStderr() ?></p>
+            <ul class="list-group">
+                <li class="list-group-item active">Affected tests</li>
+                <?php foreach($mutant->getTests() as $test): ?>
+                <li class="list-group-item"><?php echo $test ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

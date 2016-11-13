@@ -86,13 +86,21 @@ class JsonParser implements Parser {
     private function convertToMutant($jsonObject) {
         $mutant = new Mutant();
         $mutant->setClass($jsonObject->class);
-        $mutant->setDiff($this->convertDiff($jsonObject->diff));
+        if (property_exists($jsonObject, "diff")) {
+            $mutant->setDiff($this->convertDiff($jsonObject->diff));
+        }
         $mutant->setFile($jsonObject->file);
         $mutant->setLine($jsonObject->line);
         $mutant->setMutator($jsonObject->mutator);
-        $mutant->setStderr($jsonObject->stderr);
-        $mutant->setStdout($jsonObject->stdout);
-        $mutant->setTests($jsonObject->tests);
+        if (property_exists($jsonObject, "stderr")) {
+            $mutant->setStderr($jsonObject->stderr);
+        }
+        if (property_exists($jsonObject, "stdout")) {
+            $mutant->setStdout($jsonObject->stdout);
+        }
+        if (property_exists($jsonObject, "tests")) {
+            $mutant->setTests($jsonObject->tests);
+        }
         $mutant->setMethod($jsonObject->method);
         return $mutant;
     }
@@ -102,11 +110,11 @@ class JsonParser implements Parser {
         $rows =  array_slice(explode(PHP_EOL, $string), 3);
         for($x = 0; $x < count($rows); $x++) {
             if (strpos($rows[$x], "-") === 0) {
-                $rows[$x] = '<tr><td class="original"><pre> ' . substr($rows[$x], 1) . '</pre></td></tr>';
+                $rows[$x] = '<pre class="original"> ' . substr($rows[$x], 1) . '</pre>';
             } elseif (strpos($rows[$x], "+") === 0) {
-                $rows[$x] = '<tr><td class="mutated"><pre> ' . substr($rows[$x], 1) . '</pre></td></tr>';
+                $rows[$x] = '<pre class="mutated"> ' . substr($rows[$x], 1) . '</pre>';
             } else {
-                $rows[$x] = '<tr><td><pre>' . $rows[$x] . '</pre></td></tr>';
+                $rows[$x] = '<pre>' . $rows[$x] . '</pre>';
             }
         }
         return implode(PHP_EOL, $rows);

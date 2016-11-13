@@ -2,69 +2,59 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $file->getName() ?> mutation test reports</title>
-    <link rel="stylesheet" href="<?php echo $this->resourcesDir."bootstrap.min.css"; ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->resourcesDir."style.css"; ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->resourcesDir . "bootstrap.min.css"; ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->resourcesDir . "style.css"; ?>"/>
 </head>
 <body>
-<h1><?php echo $file->getName() ?> mutation test reports</h1>
-<?php /** @var \Letscodehu\HumbugHtml\File $file */ ?>
-    <div id="killed">
-        <h3>Killed</h3>
-        <?php foreach ($file->getKilled() as $mutant): ?>
-            <?php /** @var \Letscodehu\HumbugHtml\Mutant $mutant */ ?>
-            <div class="mutation">
-                <table>
-                    <?php echo $mutant->getDiff() ?>
-                </table>
-            </div>
-        <?php endforeach ?>
+<div class="container">
+    <div class="page-header">
+        <h1><?php echo $file->getName() ?> <small>mutation test reports</small></h1>
     </div>
-    <div id="uncovered">
-        <h3>Uncovered</h3>
-        <?php foreach ($file->getUncovered() as $mutant): ?>
-            <?php /** @var \Letscodehu\HumbugHtml\Mutant $mutant */ ?>
-            <div class="mutation">
-                <table>
-                    <?php echo $mutant->getDiff() ?>
-                </table>
-            </div>
-        <?php endforeach ?>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" href="#killed">Killed</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#uncovered">Uncovered</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#escaped">Escaped</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#errored">Errored</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#timeouts">Timeouts</a></li>
+    </ul>
+    <div class="tab-content">
+        <?php /** @var \Letscodehu\HumbugHtml\File $file */ ?>
+        <div id="killed" class="tab-pane fade in active">
+            <h3>Killed</h3>
+            <?php foreach ($file->getKilled() as $mutant): ?>
+                <?php include "mutant.phtml"; ?>
+            <?php endforeach ?>
+        </div>
+        <div id="uncovered" class="tab-pane fade">
+            <h3>Uncovered</h3>
+            <?php foreach ($file->getUncovered() as $mutant): ?>
+                <?php include "mutant.phtml"; ?>
+            <?php endforeach ?>
+        </div>
+        <div id="escaped" class="tab-pane fade">
+            <h3>Escaped</h3>
+            <?php foreach ($file->getEscaped() as $mutant): ?>
+                <?php include "mutant.phtml"; ?>
+            <?php endforeach ?>
+        </div>
+        <div id="errored" class="tab-pane fade">
+            <h3>Errored</h3>
+            <?php foreach ($file->getErrored() as $mutant): ?>
+                <?php include "mutant.phtml"; ?>
+            <?php endforeach ?>
+        </div>
+        <div id="timeouts" class="tab-pane fade">
+            <h3>Timeouts</h3>
+            <?php foreach ($file->getTimeouts() as $mutant): ?>
+                <?php include "mutant.phtml"; ?>
+            <?php endforeach ?>
+        </div>
     </div>
-    <div id="escaped">
-        <h3>Escaped</h3>
-        <?php foreach ($file->getEscaped() as $mutant): ?>
-            <?php /** @var \Letscodehu\HumbugHtml\Mutant $mutant */ ?>
-            <div class="mutation">
-                <table>
-                    <?php echo $mutant->getDiff() ?>
-                </table>
-            </div>
-        <?php endforeach ?>
-    </div>
-    <div id="errored">
-        <h3>Errored</h3>
-        <?php foreach ($file->getErrored() as $mutant): ?>
-            <?php /** @var \Letscodehu\HumbugHtml\Mutant $mutant */ ?>
-            <div class="mutation">
-                <table>
-                    <?php echo $mutant->getDiff() ?>
-                </table>
-            </div>
-        <?php endforeach ?>
-    </div>
-    <div id="timeouts">
-        <h3>Timeouts</h3>
-        <?php foreach ($file->getTimeouts() as $mutant): ?>
-            <?php /** @var \Letscodehu\HumbugHtml\Mutant $mutant */ ?>
-            <div class="mutation">
-                <table>
-                    <?php echo $mutant->getDiff() ?>
-                </table>
-            </div>
-        <?php endforeach ?>
-    </div>
-<script type="text/javascript" src="<?php echo $this->resourcesDir."jquery.min.js" ?>"></script>
-<script type="text/javascript" src="<?php echo $this->resourcesDir."bootstrap.min.js" ?>"></script>
+</div>
+<script type="text/javascript" src="<?php echo $this->resourcesDir . "jquery.min.js" ?>"></script>
+<script type="text/javascript" src="<?php echo $this->resourcesDir . "bootstrap.min.js" ?>"></script>
 </body>
 </html>

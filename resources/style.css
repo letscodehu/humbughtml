@@ -1,25 +1,23 @@
 .mutation {
     margin-top: 40px;
 }
-tr, th, td {
-    display: block;
-    max-height: 14px;
-}
+
 .mutation {
-
-}
-
-h3 {
-
+    margin-bottom: 30px;
 }
 
 pre {
-    margin-top: 0;
+    margin: 0;
+    padding: 0;
+    border : none;
+    line-height: 1;
+    border-radius: 0;
+    overflow: hidden;
 }
 .original {
-    background-color: #dff0d8;
+    background-color: #f2dede;
 }
 
 .mutated {
-    background-color: #f2dede;
+    background-color: #dff0d8;
 }
