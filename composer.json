@@ -2,9 +2,13 @@
     "name": "letscodehu/humbughtml",
     "description": "Generating HTML output from humbug's json log",
     "type": "library",
+    "homepage" : "https://github.com/letscodehu/humbughtml",
+    "keywords" : [ "php", "humbug", "mutation", "test"],
     "authors": [
         {
             "name": "Papp Krisztián",
+            "homepage" : "https://www.letscode.hu",
+            "role" : "Developer",
             "email": "fejlesztes@letscode.hu"
         }
     ],
