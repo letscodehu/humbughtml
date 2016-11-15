@@ -18,11 +18,16 @@ Add it to your composer dependencies:
 
 ```json
    "require" : {
-       "letscodehu/humbuglog" : "dev-master"
+       "letscodehu/humbughtml" : "dev-master"
    }
 ```
 
 Then run composer update
+
+Or simply invoke 
+
+```bash
+composer require "letscodehu/humbughtml@dev-master"
 
 # Usage
 
