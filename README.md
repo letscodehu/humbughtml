@@ -9,7 +9,7 @@ Add it to your composer dependencies:
    "require" : {
        "letscodehu/humbughtml" : "dev-master"
    }
-```
+``` 
 
 Then run composer update
 
