@@ -11,13 +11,14 @@ namespace Letscodehu\HumbugHtml;
 
 class HtmlRenderer implements Renderer {
 
-    private $outDir, $resourcesDir, $capturer, $writer;
+    private $outDir, $resourcesDir, $capturer, $writer, $resourceDirectoryPath;
 
     public function __construct($outDir = "humbugreports", StreamCapturer $capturer, StreamWriter $writer) {
         $this->outDir = $outDir;
         $this->capturer = $capturer;
         $this->writer = $writer;
-        $this->resourcesDir = getcwd().DS.$outDir.DS."resources".DS;
+        $this->resourceDirectoryPath = "resources".DS;
+        $this->resourcesDir = getcwd().DS.$outDir.DS.$this->resourceDirectoryPath;
     }
 
     /**
@@ -25,6 +26,7 @@ class HtmlRenderer implements Renderer {
      * static resources then renders the HTML for the project and for the files in that project.
      *
      * @param Project $project
+     * @return void
      */
     public function render(Project $project)
     {
@@ -32,27 +34,30 @@ class HtmlRenderer implements Renderer {
         $this->copyResources();
         $this->renderProjectView($project);
         $this->renderFileViews($project);
-
     }
 
     private function renderProjectView(Project $project) {
+        $relativeResourcesDir = str_replace(getcwd().DS.$this->outDir.DS, "", $this->resourcesDir);
+
         $content = $this->capturer->includeFile(LIBRARY_ROOT.DS."stubs".DS."project.phtml",
             array(
                 "project" => $project,
-                "resourcesDir" => $this->resourcesDir
+                "resourcesDir" => $relativeResourcesDir
             )
         );
         $this->writer->putContents($this->outDir. DS . "index.html", $content);
     }
 
     private function renderFileViews(Project $project) {
+        /** @var File $file */
         foreach ($project->getFiles() as $file) {
-            /** @var File $file */
+            $relativePath = $this->createRelativePath($file->getName());
+
             $content = $this->capturer->includeFile(LIBRARY_ROOT.DS."stubs".DS."file.phtml",
                 array(
                     "project" => $project,
                     "file" => $file,
-                    "resourcesDir" => $this->resourcesDir
+                    "resourcesDir" => $relativePath
                 ));
             $this->writer->putContents($this->outDir. DS . "files". DS. $file->getName().".html", $content);
         }
@@ -83,6 +88,21 @@ class HtmlRenderer implements Renderer {
         if (!is_dir($this->outDir.DS.$suffix)) {
             mkdir($this->outDir.DS.$suffix);
         }
+    }
+
+    /**
+     * @param $fileName
+     * @return string
+     */
+    private function createRelativePath($fileName)
+    {
+        $explodedFileName = explode("/", $fileName);
+        $relativePath = "";
+        for ($p = 0; $p < count($explodedFileName); $p++) {
+            $relativePath .= "../";
+        }
+        $relativePath .= $this->resourceDirectoryPath;
+        return $relativePath;
     }
 
 }
