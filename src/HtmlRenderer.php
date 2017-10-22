@@ -94,7 +94,7 @@ class HtmlRenderer implements Renderer {
      */
     private function createRelativePath($fileName)
     {
-        $explodedFileName = explode("/", $fileName);
+        $explodedFileName = explode(DS, $fileName);
         $relativePath = "";
         for ($p = 0; $p < count($explodedFileName); $p++) {
             $relativePath .= "..".DS;
