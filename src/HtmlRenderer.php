@@ -37,12 +37,10 @@ class HtmlRenderer implements Renderer {
     }
 
     private function renderProjectView(Project $project) {
-        $relativeResourcesDir = str_replace(getcwd().DS.$this->outDir.DS, "", $this->resourcesDir);
-
         $content = $this->capturer->includeFile(LIBRARY_ROOT.DS."stubs".DS."project.phtml",
             array(
                 "project" => $project,
-                "resourcesDir" => $relativeResourcesDir
+                "resourcesDir" => $this->resourceDirectoryPath
             )
         );
         $this->writer->putContents($this->outDir. DS . "index.html", $content);
@@ -99,7 +97,7 @@ class HtmlRenderer implements Renderer {
         $explodedFileName = explode("/", $fileName);
         $relativePath = "";
         for ($p = 0; $p < count($explodedFileName); $p++) {
-            $relativePath .= "../";
+            $relativePath .= "..".DS;
         }
         $relativePath .= $this->resourceDirectoryPath;
         return $relativePath;
