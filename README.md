@@ -7,7 +7,7 @@ Add it to your composer dependencies:
 
 ```json
    "require" : {
-       "letscodehu/humbughtml" : "dev-master"
+       "letscodehu/humbughtml" : "^1.0"
    }
 ``` 
 
@@ -16,7 +16,7 @@ Then run composer update
 Or simply invoke 
 
 ```bash
-composer require "letscodehu/humbughtml@dev-master"
+composer require "letscodehu/humbughtml@^1.0"
 ```
 
 # Usage
@@ -24,7 +24,7 @@ composer require "letscodehu/humbughtml@dev-master"
 From command line: 
 
 ```bash
-./vendor/letscodehu/humbughtml/bin/humbughtml [--outdir=path/to/generated/html] [--logfile=path/to/humbuglog.json] 
+./vendor/bin/humbughtml [--outdir=path/to/generated/html] [--logfile=path/to/humbuglog.json] 
 ```
 
 It defaults to humbuglog.json and the reports are generated to humbugreports by default.
