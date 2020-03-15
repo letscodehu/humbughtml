@@ -1,9 +1,12 @@
 #! /usr/bin/php
 <?php
 
-include( "vendor".DIRECTORY_SEPARATOR."autoload.php");
+use Letscodehu\HumbugHtml\StreamCapturer;
+use Letscodehu\HumbugHtml\StreamWriter;
 
-define("LIBRARY_ROOT", __DIR__.DIRECTORY_SEPARATOR. "..");
+include("vendor" . DIRECTORY_SEPARATOR . "autoload.php");
+
+define("LIBRARY_ROOT", __DIR__ . DIRECTORY_SEPARATOR . "..");
 define("DS", DIRECTORY_SEPARATOR);
 
 $logFile = "humbuglog.json";
@@ -25,10 +28,10 @@ if (array_key_exists("outdir", $options)) {
 }
 try {
     $jsonParser = new Letscodehu\HumbugHtml\JsonParser($logFile);
-    $htmlRenderer = new Letscodehu\HumbugHtml\HtmlRenderer($outDir, new \Letscodehu\HumbugHtml\StreamCapturer(), new \Letscodehu\HumbugHtml\StreamWriter());
+    $htmlRenderer = new Letscodehu\HumbugHtml\HtmlRenderer($outDir, new StreamCapturer(), new StreamWriter());
     $app = new Letscodehu\HumbugHtml\Application($jsonParser, $htmlRenderer);
 
     $app->generate();
 } catch (Exception $e) {
-    echo $e->getMessage().PHP_EOL;
+    echo $e->getMessage() . PHP_EOL;
 }

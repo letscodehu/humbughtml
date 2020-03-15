@@ -9,7 +9,8 @@ namespace Letscodehu\HumbugHtml;
  *
  * @package Letscodehu\HumbugHtml
  */
-class Project {
+class Project
+{
 
     private $summary, $uncovered = array(), $escaped = array(), $errored = array(), $timeouts = array(), $killed = array(), $files = array();
 
@@ -124,7 +125,6 @@ class Project {
     {
         $this->killed = $killed;
     }
-
 
 
 }

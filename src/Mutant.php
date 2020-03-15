@@ -9,7 +9,8 @@ namespace Letscodehu\HumbugHtml;
  *
  * @package Letscodehu\HumbugHtml
  */
-class Mutant {
+class Mutant
+{
 
     private $file, $mutator, $class, $method, $line, $diff, $tests, $stderr, $stdout;
 

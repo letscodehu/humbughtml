@@ -2,7 +2,6 @@
 
 namespace Letscodehu\HumbugHtml;
 
-
 /**
  * Class File
  *
@@ -10,11 +9,13 @@ namespace Letscodehu\HumbugHtml;
  *
  * @package Letscodehu\HumbugHtml
  */
-class File {
+class File
+{
 
     private $name, $uncovered = array(), $escaped = array(), $errored = array(), $timeouts = array(), $killed = array();
 
-    public function __construct($name, $content) {
+    public function __construct($name, $content)
+    {
         if (array_key_exists("uncovered", $content)) {
             $this->uncovered = $content["uncovered"];
         }

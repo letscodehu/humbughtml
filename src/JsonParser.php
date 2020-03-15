@@ -1,23 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tacsiazuma
- * Date: 2016.11.12.
- * Time: 18:43
- */
 
 namespace Letscodehu\HumbugHtml;
 
 
-class JsonParser implements Parser {
+class JsonParser implements Parser
+{
 
     private $logFile;
 
-    public function __construct($logFile = "humbuglog.json") {
+    public function __construct($logFile = "humbuglog.json")
+    {
         $this->logFile = $logFile;
     }
 
-    public function consume() {
+    public function consume()
+    {
         $content = $this->getContent();
         $objectMap = json_decode($content);
         if ($objectMap == null) {
@@ -26,15 +23,17 @@ class JsonParser implements Parser {
         return $this->convertToProject($objectMap);
     }
 
-    private function getContent() {
+    private function getContent()
+    {
         if (!file_exists($this->logFile)) {
-            throw new \InvalidArgumentException("The specified file '".$this->logFile."' not found!" );
+            throw new \InvalidArgumentException("The specified file '" . $this->logFile . "' not found!");
         }
         return file_get_contents($this->logFile);
     }
 
 
-    private function convertToProject($objectMap) {
+    private function convertToProject($objectMap)
+    {
         $project = new Project();
         $project->setSummary($objectMap->summary);
         $project->setErrored($this->convertToMutantList($objectMap->errored));
@@ -46,7 +45,8 @@ class JsonParser implements Parser {
         return $project;
     }
 
-    private function convertToFileList(Project $project) {
+    private function convertToFileList(Project $project)
+    {
         $allMutants = array(
             "errored" => $project->getErrored(),
             "escaped" => $project->getEscaped(),
@@ -58,8 +58,7 @@ class JsonParser implements Parser {
 
 
         foreach ($allMutants as $category => $elements) {
-            foreach($elements as $key => $item)
-            {
+            foreach ($elements as $key => $item) {
                 $pureFiles[$item->getFile()][$category][$key] = $item;
             }
         }
@@ -72,7 +71,8 @@ class JsonParser implements Parser {
         return $fileList;
     }
 
-    private function convertToMutantList($jsonList) {
+    private function convertToMutantList($jsonList)
+    {
         if (!is_array($jsonList)) {
             throw new \InvalidArgumentException("The given element is not an array");
         }
@@ -83,7 +83,8 @@ class JsonParser implements Parser {
         return $mutants;
     }
 
-    private function convertToMutant($jsonObject) {
+    private function convertToMutant($jsonObject)
+    {
         $mutant = new Mutant();
         $mutant->setClass($jsonObject->class);
         if (property_exists($jsonObject, "diff")) {
@@ -105,9 +106,10 @@ class JsonParser implements Parser {
         return $mutant;
     }
 
-    public function convertDiff($string) {
-        $rows =  array_slice(explode(PHP_EOL, $string), 3);
-        for($x = 0; $x < count($rows); $x++) {
+    public function convertDiff($string)
+    {
+        $rows = array_slice(explode(PHP_EOL, $string), 3);
+        for ($x = 0; $x < count($rows); $x++) {
             if (strpos($rows[$x], "-") === 0) {
                 $rows[$x] = '<pre class="original"> ' . substr($rows[$x], 1) . '</pre>';
             } elseif (strpos($rows[$x], "+") === 0) {

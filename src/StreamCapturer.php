@@ -1,17 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tacsiazuma
- * Date: 2016.11.13.
- * Time: 21:53
- */
 
 namespace Letscodehu\HumbugHtml;
 
 
-class StreamCapturer {
+class StreamCapturer
+{
 
-    public function includeFile($_fileToInclude, $variables) {
+    public function includeFile($_fileToInclude, $variables)
+    {
         extract($variables);
         ob_start();
         include $_fileToInclude;

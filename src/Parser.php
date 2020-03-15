@@ -3,7 +3,8 @@
 namespace Letscodehu\HumbugHtml;
 
 
-interface Parser {
+interface Parser
+{
 
     /**
      * Consumes the logfile given and generates a project from its content.
